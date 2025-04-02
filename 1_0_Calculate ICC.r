@@ -16,24 +16,24 @@ T12 <- cbind(T1, T2)
 dim(T12)
 
 icc <- c(1:y)
-# 循环计算 ICC
+# Loop calculation ICC
 for (i in 1:y) {
     tryCatch({
-        # 检查特征是否全为0
+        # Check if all features are 0
         if (all(T12[, i] == 0) && all(T12[, i + y] == 0)) {
-            icc[i] <- NA  # 如果特征值全为0，设置 ICC 为 NA
+            icc[i] <- NA  # If all eigenvalues ​​are 0, set ICC to NA
         } else if (all(T12[, i] == T12[, i + y])) {
-            icc[i] <- 1  # 如果人工和自动分割特征完全一致，设置 ICC 为 1或者0.9999（最高）
+            icc[i] <- 1  # If the manual and automatic segmentation features are exactly the same, set ICC to 1 or 0.9999 (highest)
         } else {
-            icc[i] <- ICC(T12[, c(i, i + y)])$results$ICC[2]  # 正常计算 ICC
+            icc[i] <- ICC(T12[, c(i, i + y)])$results$ICC[2]  # Normal calculation ICC
         }
     }, error = function(e) {
-        icc[i] <- NA  # 如果计算失败，将 ICC 设置为 NA
+        icc[i] <- NA  # If the calculation fails, set ICC to NA
     })
 }
-mean(icc)
-median(icc)
-m <- length(which(icc >= 0.80))
+mean(icc) # Calculate and output the mean ICC.
+median(icc) # Calculate and output the median ICC.
+m <- length(which(icc >= 0.80)) # Calculate the number of features with ICC values ​​greater than or equal to 0.80 and store it in the variable m
 m
 
 summary(icc)

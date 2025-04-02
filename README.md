@@ -1,1 +1,2 @@
-# Jia
+# We considered the death of the patient as an event (OS=1), and the survival or loss of follow-up of the patient as an event censoring (OS=0).
+# The outcomes of two patients were unknown, so the survival days were taken as the median survival days of all patients (516 days).
